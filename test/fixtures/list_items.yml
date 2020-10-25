@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item_id: MyString
+  resolved_id: MyString
+  given_url: MyString
+  resolved_url: MyString
+  given_title: MyString
+  resolved_title: MyString
+  favorite: 
+  status: 
+  exerpt: MyText
+  is_article: 
+  has_image: 
+  has_video: 
+  word_count: 
+
+two:
+  item_id: MyString
+  resolved_id: MyString
+  given_url: MyString
+  resolved_url: MyString
+  given_title: MyString
+  resolved_title: MyString
+  favorite: 
+  status: 
+  exerpt: MyText
+  is_article: 
+  has_image: 
+  has_video: 
+  word_count: 

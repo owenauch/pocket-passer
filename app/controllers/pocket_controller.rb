@@ -47,7 +47,7 @@ class PocketController < ApplicationController
       access_token: session[:access_token]
     }
     
-    @json_response = send_post_request(url, body)
+    @json_response = send_post_request(url, body).to_json
   end
 
   private
