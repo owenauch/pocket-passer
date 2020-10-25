@@ -18,7 +18,6 @@ class PocketController < ApplicationController
 
     # Redirect to authenticate
     redirect_url = "https://getpocket.com/auth/authorize?request_token=#{session[:request_token]}&redirect_uri=http://localhost:3000/pocket/pocket_redirect"
-    puts redirect_url
 
     redirect_to redirect_url 
   end
@@ -43,11 +42,33 @@ class PocketController < ApplicationController
   def load_feed
     url = 'https://getpocket.com/v3/get'
     body = {
-      consumer_key: ENV["CONSUMER_KEY"],
+      consumer_key: ENV['CONSUMER_KEY'],
       access_token: session[:access_token]
     }
     
-    @json_response = send_post_request(url, body).to_json
+    json_response = send_post_request(url, body)
+
+    json_response['list'].each do | id, attr |
+      params = {
+        :item_id => attr['item_id'],
+        :resolved_id => attr['resolved_id'],
+        :given_url => attr['given_url'],
+        :resolved_url => attr['resolved_url'],
+        :given_title => attr['given_title'],
+        :resolved_title => attr['resolved_title'],
+        :favorite => attr['favorite'],
+        :status => attr['status'],
+        :excerpt => attr['excerpt'],
+        :is_article => attr['is_article'],
+        :has_image => attr['has_image'],
+        :has_video => attr['has_video'],
+        :word_count => attr['word_count'],
+        :time_to_read => attr['time_to_read'],
+      }
+      list_item = ListItem.new(params)
+
+      list_item.save
+    end
   end
 
   private

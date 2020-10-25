@@ -9,13 +9,16 @@ class CreateListItems < ActiveRecord::Migration[6.0]
       t.string :resolved_title
       t.integer :favorite
       t.integer :status
-      t.text :exerpt
+      t.text :excerpt
       t.integer :is_article
       t.integer :has_image
       t.integer :has_video
       t.integer :word_count
+      t.integer :time_to_read
 
       t.timestamps
     end
+
+    add_index :list_items, :item_id, unique: true
   end
 end
