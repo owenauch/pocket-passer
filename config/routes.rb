@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  get 'auth/auth'
-  get 'auth/pocket_redirect', to: 'auth#pocket_redirect'
+  get 'pocket/auth'
+  get 'pocket/pocket_redirect', to: 'pocket#pocket_redirect'
+  get 'pocket/load_feed', to: 'pocket#load_feed'
 
 
-  root 'auth#auth'
+  root 'pocket#auth'
 end
