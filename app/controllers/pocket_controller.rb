@@ -9,8 +9,7 @@ class PocketController < ApplicationController
       consumer_key: ENV["CONSUMER_KEY"],
       redirect_uri: 'http://localhost:3000'
     }
-
-    # Make request 
+    # Make request
     json_response = send_post_request(url, body)
 
     # Store in session cookie
@@ -19,7 +18,7 @@ class PocketController < ApplicationController
     # Redirect to authenticate
     redirect_url = "https://getpocket.com/auth/authorize?request_token=#{session[:request_token]}&redirect_uri=http://localhost:3000/pocket/pocket_redirect"
 
-    redirect_to redirect_url 
+    redirect_to redirect_url
   end
 
   def pocket_redirect
@@ -29,7 +28,7 @@ class PocketController < ApplicationController
       code: session[:request_token]
     }
 
-    # Make request 
+    # Make request
     json_response = send_post_request(url, body)
 
     # Save access token in session
@@ -45,7 +44,7 @@ class PocketController < ApplicationController
       consumer_key: ENV['CONSUMER_KEY'],
       access_token: session[:access_token]
     }
-    
+
     json_response = send_post_request(url, body)
 
     json_response['list'].each do | id, attr |

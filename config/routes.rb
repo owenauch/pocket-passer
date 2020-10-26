@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  get 'feed/read'
-  get 'pocket/auth'
-  get 'pocket/pocket_redirect', to: 'pocket#pocket_redirect'
-  get 'pocket/load_feed', to: 'pocket#load_feed'
+  get '/' => 'welcome#index'
+  get 'feed/read' => 'feed#read'
+  get 'feed/skip_article' => 'feed#skip_article', :as => :skip_article
+  get 'pocket/auth' => 'pocket#auth', :as => :pocket_authorize
+  get 'pocket/pocket_redirect' => 'pocket#pocket_redirect'
+  get 'pocket/load_feed' => 'pocket#load_feed'
 
-
-  root 'pocket#auth'
+  root 'welcome#index'
 end
