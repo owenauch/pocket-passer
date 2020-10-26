@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_213546) do
     t.integer "has_video"
     t.integer "word_count"
     t.integer "time_to_read"
+    t.integer "times_skipped"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["item_id"], name: "index_list_items_on_item_id", unique: true

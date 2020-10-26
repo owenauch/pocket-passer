@@ -15,6 +15,7 @@ class CreateListItems < ActiveRecord::Migration[6.0]
       t.integer :has_video
       t.integer :word_count
       t.integer :time_to_read
+      t.integer :times_skipped
 
       t.timestamps
     end

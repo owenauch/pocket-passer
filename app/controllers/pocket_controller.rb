@@ -64,11 +64,14 @@ class PocketController < ApplicationController
         :has_video => attr['has_video'],
         :word_count => attr['word_count'],
         :time_to_read => attr['time_to_read'],
+        :times_skipped => 0
       }
       list_item = ListItem.new(params)
 
       list_item.save
     end
+
+      redirect_to :controller => 'feed', :action => 'read' and return
   end
 
   private
