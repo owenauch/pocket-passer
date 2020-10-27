@@ -64,7 +64,10 @@ class PocketController < ApplicationController
         :word_count => attr['word_count'],
         :time_to_read => attr['time_to_read'],
         :username => session['username'],
-        :times_skipped => 0
+        :times_skipped => 0,
+        # this should be defaulted to false but I got
+        # tired of fighting ActiveRecord
+        :archived => false
       }
       list_item = ListItem.new(params)
 

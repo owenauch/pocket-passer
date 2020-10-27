@@ -19,7 +19,7 @@ class FeedController < ApplicationController
 
   # TODO: this should probably go in a helper at some point
   def get_weighted_random_list_item
-    list_items = ListItem.where(username: session[:username])
+    list_items = ListItem.where(username: session[:username], archived: false)
     cumulative_weight = 0.0
     list_items.each do | item |
       cumulative_weight += 1.0/2**item.times_skipped

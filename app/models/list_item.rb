@@ -6,8 +6,10 @@ class ListItem < ApplicationRecord
     self.update(times_skipped: new_times_skipped)
   end
 
+  # TODO: add error checking
   def archive(access_token)
-    puts self.call_modify(access_token, "archive", self.item_id)
+    self.call_modify(access_token, "archive", self.item_id)
+    self.update(archived: true)
   end
 
   private
@@ -32,7 +34,6 @@ class ListItem < ApplicationRecord
 
     # Send request
     response = http.request(request)
-    puts response.body
     json_response = JSON.parse(response.body)
     return json_response
   end

@@ -7,3 +7,4 @@ TODOs:
 * [ ] Make homepage pretty
 * [ ] Make topbar pretty
 * [ ] Add ability to open new tab to original if it doesn't work
+* [ ] Add error handling
