@@ -6,6 +6,7 @@ class FeedController < ApplicationController
   def skip_article
     @item = ListItem.find_by(item_id: params[:list_item_id])
     @item.pass_article
+    puts "times skipped" + @item.times_skipped.to_s
     redirect_to :controller => 'feed', :action => 'read'
   end
 
