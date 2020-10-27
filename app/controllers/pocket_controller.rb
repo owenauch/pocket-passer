@@ -63,6 +63,7 @@ class PocketController < ApplicationController
         :has_video => attr['has_video'],
         :word_count => attr['word_count'],
         :time_to_read => attr['time_to_read'],
+        :username => session['username'],
         :times_skipped => 0
       }
       list_item = ListItem.new(params)
