@@ -6,3 +6,4 @@ TODOs:
 * [ ] Add ability to ensure the same article doesn't show up again in the same session
 * [ ] Make homepage pretty
 * [ ] Make topbar pretty
+* [ ] Add ability to open new tab to original if it doesn't work
