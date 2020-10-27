@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_213546) do
+ActiveRecord::Schema.define(version: 2020_10_27_060421) do
 
   create_table "list_items", force: :cascade do |t|
     t.string "item_id"
@@ -27,10 +27,11 @@ ActiveRecord::Schema.define(version: 2020_10_25_213546) do
     t.integer "has_video"
     t.integer "word_count"
     t.integer "time_to_read"
-    t.integer "times_skipped"
-    t.string "username"
+    t.integer "times_skipped", default: 100
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "username"
+    t.boolean "archived"
     t.index ["item_id"], name: "index_list_items_on_item_id", unique: true
   end
 

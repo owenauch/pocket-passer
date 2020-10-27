@@ -8,6 +8,12 @@ class FeedController < ApplicationController
     @item.pass_article
     redirect_to :controller => 'feed', :action => 'read'
   end
+  
+  def archive
+    @item = ListItem.find_by(item_id: params[:list_item_id])
+    @item.archive(session[:access_token])
+    redirect_to :controller => 'feed', :action => 'read'
+  end
 
   private
 
