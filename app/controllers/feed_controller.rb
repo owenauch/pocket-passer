@@ -1,6 +1,28 @@
 class FeedController < ApplicationController
   def read
-    @item = get_weighted_random_list_item()
+    if session[:viewed_article_ids].nil?
+      session[:viewed_article_ids] = []
+    end
+
+    list_items = ListItem.where(username: session[:username], archived: false)
+
+    # keep sampling until we find one we haven't seen this session 
+    item_to_read = nil
+    loop do
+      item_to_read = get_weighted_random_list_item(list_items)
+
+      # handle case where we redirect to auth
+      if item_to_read.nil?
+        return
+      end
+
+      break if not session[:viewed_article_ids].include? item_to_read.item_id
+    end
+
+    @item = item_to_read
+
+    # add this article to the ones we've seen this session
+    session[:viewed_article_ids] = session[:viewed_article_ids] << @item.item_id
   end
 
   def skip_article
@@ -12,22 +34,26 @@ class FeedController < ApplicationController
   def archive
     @item = ListItem.find_by(item_id: params[:list_item_id])
     @item.archive(session[:access_token])
-    redirect_to :controller => 'feed', :action => 'read'
+    redirect_to :controller => 'feed', :action => 'read' and return
   end
 
   private
 
-  def get_weighted_random_list_item
+  def get_weighted_random_list_item(list_items)
     # send back to auth if not in session state
     if session[:username].nil?
       redirect_to :controller => 'pocket', :action => 'auth'
     end
- 
-    list_items = ListItem.where(username: session[:username], archived: false)
+
+    # add or reset viewed articles
+    if session[:viewed_article_ids].length() === list_items.length()
+      session[:viewed_article_ids] = []
+    end
 
     # if no list items, show alert
     if list_items.empty?
-      flash.alert = "No articles found in Pocket list!"  
+      # sorry that this is gross
+      flash.now.alert = "No articles found in Pocket list! — <a href='/pocket/load_feed'>Reload articles from Pocket</a>"
     end
 
     cumulative_weight = 0.0
@@ -36,7 +62,7 @@ class FeedController < ApplicationController
     end
 
     # we want this to be a float
-    random_weight = rand(cumulative_weight.to_f)
+    random_weight = rand * cumulative_weight
 
     counting_weight = 0.0
     list_items.each do | item |
