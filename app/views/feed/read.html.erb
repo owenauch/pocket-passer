@@ -1,9 +1,10 @@
-<% iframe_src = @item.given_url %>
-<h3> This article will take you <%= @item.time_to_read %> minutes to read | <%= link_to 'Skip Article', skip_article_path(:list_item_id => @item.item_id)%> | <%= link_to 'Archive Article', archive_path(:list_item_id => @item.item_id)%> </h3>
+<% if @item %>
+  <h3> This article will take you <%= @item.time_to_read %> minutes to read | <%= link_to 'Skip Article', skip_article_path(:list_item_id => @item.item_id)%> | <%= link_to 'Archive Article', archive_path(:list_item_id => @item.item_id)%> </h3>
 
-<iframe
-  height="100%"
-  width="100%"
-  frameborder="0" style="border:0"
-  src="<%= iframe_src %>"
->
+  <iframe
+    height="100%"
+    width="100%"
+    frameborder="0" style="border:0"
+    src="<%= @item.given_url %>"
+  >
+<% end %>

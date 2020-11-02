@@ -17,9 +17,19 @@ class FeedController < ApplicationController
 
   private
 
-  # TODO: this should probably go in a helper at some point
   def get_weighted_random_list_item
+    # send back to auth if not in session state
+    if session[:username].nil?
+      redirect_to :controller => 'pocket', :action => 'auth'
+    end
+ 
     list_items = ListItem.where(username: session[:username], archived: false)
+
+    # if no list items, show alert
+    if list_items.empty?
+      flash.alert = "No articles found in Pocket list!"  
+    end
+
     cumulative_weight = 0.0
     list_items.each do | item |
       cumulative_weight += 1.0/2**item.times_skipped
