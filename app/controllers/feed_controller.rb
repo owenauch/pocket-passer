@@ -1,3 +1,5 @@
+require 'net/http'
+
 class FeedController < ApplicationController
   def read
     if session[:viewed_article_ids].nil?
@@ -17,6 +19,13 @@ class FeedController < ApplicationController
       end
 
       break if not session[:viewed_article_ids].include? item_to_read.item_id
+    end
+
+    response = Net::HTTP.get_response(URI.parse(item_to_read.given_url))
+    if response["x-frame-options"]
+      @can_display_article = false
+    else
+      @can_display_article = true
     end
 
     @item = item_to_read
