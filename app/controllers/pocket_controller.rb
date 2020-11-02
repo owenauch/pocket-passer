@@ -45,6 +45,12 @@ class PocketController < ApplicationController
       access_token: session[:access_token]
     }
 
+    # only query for items added since last update
+    list_fetch_event = ListFetchEvent.order("created_at").last
+    if not list_fetch_event.nil?
+      body["since"] = list_fetch_event.created_at.to_time.to_i
+    end
+
     json_response = send_post_request(url, body)
 
     json_response['list'].each do | id, attr |
@@ -73,6 +79,8 @@ class PocketController < ApplicationController
 
       list_item.save
     end
+
+    ListFetchEvent.new.save
 
       redirect_to :controller => 'feed', :action => 'read' and return
   end

@@ -8,3 +8,4 @@ TODOs:
 * [ ] Make topbar pretty
 * [x] Add ability to open new tab to original if it doesn't work
 * [ ] Add error handling
+* [ ] Add since parameter to keep Pocket from sending articles we already have
