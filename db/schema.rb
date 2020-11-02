@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2020_10_27_060421) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "username"
-    t.boolean "archived"
+    t.boolean "archived", default: false, null: false
     t.index ["item_id"], name: "index_list_items_on_item_id", unique: true
   end
 
