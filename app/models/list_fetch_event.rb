@@ -1,0 +1,2 @@
+class ListFetchEvent < ApplicationRecord
+end
